@@ -11,14 +11,14 @@ abstract class AppEnvironment {
       case Environment.dev:
         {
           baseApiUrl = 'https://api-dev.com/';
-          title = 'Flutter flavors dev';
+          title = 'musicapp dev';
           break;
         }
 
       case Environment.prod:
         {
           baseApiUrl = 'https://api-prod.com/';
-          title = 'Flutter flavors';
+          title = 'musicapp prod';
           break;
         }
     }
