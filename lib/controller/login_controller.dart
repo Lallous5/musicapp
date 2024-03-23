@@ -12,6 +12,7 @@ class AUTHController extends GetxController {
   String basicUrl = AppEnvironment.baseApiUrl;
   AuthBACKEND auth = AuthBACKEND();
   final emailController = TextEditingController();
+  final userNameController = TextEditingController();
   final passwordController = TextEditingController();
   Rx<UserModel?> rxUserModel = Rxn();
 
@@ -19,6 +20,13 @@ class AUTHController extends GetxController {
   void onInit() {
     print(basicUrl);
     super.onInit();
+  }
+
+  String email = '';
+
+  void setEmail(String newEmail) {
+    email = newEmail;
+    update(); // This is to notify the listeners (like UI) about the change.
   }
 
   UserModel? get userModel => rxUserModel.value;
@@ -46,6 +54,23 @@ class AUTHController extends GetxController {
   Future handleCheckPass() async {
     try {
       await auth.checkPass(userModel!.userID as int, passwordController.text);
+      // If email is valid, you can proceed with the login process using the returned user ID
+
+      Get.toNamed(RouteGenerator.artist);
+      // Navigate to the appropriate page based on the response
+    } catch (e) {
+      // Handle any exceptions, such as invalid email
+      print('Error: $e');
+      // Navigate to the new password page
+      Get.snackbar("error", "$e");
+    }
+  }
+
+  Future handleRegister() async {
+    String userName = userNameController.text.trim();
+
+    try {
+      await auth.createUser(email, passwordController.text, userName);
       // If email is valid, you can proceed with the login process using the returned user ID
 
       Get.toNamed(RouteGenerator.navBar);

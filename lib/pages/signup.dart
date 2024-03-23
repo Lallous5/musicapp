@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musicapp/controller/login_controller.dart';
 import 'package:musicapp/rout.dart';
 import 'package:musicapp/utils/validation.dart';
 
@@ -9,30 +10,24 @@ import '../utils/buttons.dart';
 import '../utils/test_utils.dart';
 import 'loginpage.dart';
 
-class Signup extends StatelessWidget {
+class Signup extends StatefulWidget {
   Signup({super.key});
 
-  // text editing controllers
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  @override
+  State<Signup> createState() => _SignupState();
+}
 
-  final double _sigmaX = 5; // from 0-10
-  final double _sigmaY = 5; // from 0-10
+class _SignupState extends State<Signup> {
+  final double _sigmaX = 5;
+  // from 0-10
+  final double _sigmaY = 5;
+  // from 0-10
   final double _opacity = 0.2;
-  final _formKey = GlobalKey<FormState>();
+  bool _obscureText = true;
 
-  // sign user in method
-  void signUserIn() {
-    if (_formKey.currentState!.validate()) {
-      if (kDebugMode) {
-        print('valid');
-      }
-    } else {
-      if (kDebugMode) {
-        print('not valid');
-      }
-    }
-  }
+  AUTHController loginController = Get.put(AUTHController());
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +85,12 @@ class Signup extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 const Text(
-                                    "Look like you don't have an account. Let's create a new account",
+                                    "Look like you don't have an account. Let's create a new account for this:",
+                                    // ignore: prefer_const_constructors
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                    textAlign: TextAlign.start),
+                                Text(loginController.email,
                                     // ignore: prefer_const_constructors
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 20),
@@ -101,17 +101,31 @@ class Signup extends StatelessWidget {
 
                                 MyTextField(
                                   validator: (val) =>
-                                      TextValidation.emailValidation(val),
-                                  controller: usernameController,
-                                  hintText: 'Email',
+                                      TextValidation.userNameVali(val),
+                                  controller:
+                                      loginController.userNameController,
+                                  hintText: 'UserName',
                                   obscureText: false,
                                 ),
 
                                 const SizedBox(height: 10),
                                 MyPasswordTextField(
-                                  controller: passwordController,
+                                  controller:
+                                      loginController.passwordController,
                                   hintText: 'Password',
-                                  obscureText: true,
+                                  obscureText: _obscureText,
+                                  suffixWidget: IconButton(
+                                    icon: Icon(
+                                      _obscureText
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _obscureText = !_obscureText;
+                                      });
+                                    },
+                                  ),
                                 ),
                                 const SizedBox(height: 30),
 
@@ -148,7 +162,7 @@ class Signup extends StatelessWidget {
                                       text: "Agree and Continue",
                                       onTap: () {
                                         if (_formKey.currentState!.validate()) {
-                                          Get.toNamed(RouteGenerator.loginPage);
+                                          loginController.handleRegister();
                                         } else {
                                           if (kDebugMode) {
                                             print('not valid');
