@@ -38,11 +38,13 @@ class MyPasswordTextField extends StatelessWidget {
   final controller;
   final String hintText;
   final bool obscureText;
+  final Widget suffixWidget;
   const MyPasswordTextField({
     super.key,
     required this.controller,
     required this.hintText,
     required this.obscureText,
+    required this.suffixWidget,
   });
 
   @override
@@ -53,7 +55,7 @@ class MyPasswordTextField extends StatelessWidget {
       obscureText: obscureText,
       
       decoration: InputDecoration(
-          suffixIcon: const Icon(Icons.visibility_off),
+          suffixIcon: suffixWidget,
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white),
           ),

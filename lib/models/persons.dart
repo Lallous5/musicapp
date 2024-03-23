@@ -4,17 +4,25 @@ import 'dart:convert';
 class UserModel {
   final int? userID;
   final String? userName;
+  final String? firstName;
+  final String? lastName;
   final String? email;
+  final String? password;
   UserModel({
     this.userID,
     this.userName,
+    this.firstName,
+    this.lastName,
     this.email,
+    this.password,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'userID': userID,
       'userName': userName,
+      'firstName': firstName,
+      'lastName': lastName,
       'email': email,
     };
   }
@@ -24,7 +32,10 @@ class UserModel {
     return UserModel(
       userID: map['userID'],
       userName: map['userName'],
+      firstName: map['firstName'],
+      lastName: map['lastName'],
       email: map['email'],
+      password: null,
     );
   }
 
@@ -35,6 +46,6 @@ class UserModel {
 
   @override
   String toString() {
-    return 'User(userID : $userID,userName: $userName, email: $email)';
+    return 'User(userID : $userID,userName: $userName, email: $email, firstName: $firstName, lastName:$lastName)';
   }
 }

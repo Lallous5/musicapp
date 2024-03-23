@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
   final double _opacity = 0.2;
 
   final _formKey = GlobalKey<FormState>();
-
+  bool _obscureText = true;
   // sign user in method
   void signUserIn() {
     if (_formKey.currentState!.validate()) {
@@ -137,7 +137,19 @@ class _LoginPageState extends State<LoginPage> {
                                   controller:
                                       loginController.passwordController,
                                   hintText: 'Password',
-                                  obscureText: true,
+                                  obscureText: _obscureText,
+                                  suffixWidget: IconButton(
+                                    icon: Icon(
+                                      _obscureText
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _obscureText = !_obscureText;
+                                      });
+                                    },
+                                  ),
                                 ),
                                 SizedBox(
                                     height: MediaQuery.of(context).size.height *

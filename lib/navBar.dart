@@ -8,9 +8,7 @@ import 'controller/nav_controller.dart';
 
 class BottomNavigationBarController extends StatefulWidget {
   final int? pageIndex;
-  BottomNavigationBarController(
-      {Key? key, this.pageIndex})
-      : super(key: key);
+  BottomNavigationBarController({Key? key, this.pageIndex}) : super(key: key);
 
   @override
   State<BottomNavigationBarController> createState() =>
@@ -50,13 +48,13 @@ class _BottomNavigationBarControllerState
         resizeToAvoidBottomInset: false,
         extendBody: true,
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(left: 15.0, right: 15, bottom: 15),
+          padding: const EdgeInsets.only(left: 2.0, right: 2, bottom: 2),
           child: Container(
             height: 60,
             child: Material(
               color: Color.fromARGB(38, 122, 122, 122),
               elevation: 10,
-              borderRadius: BorderRadius.circular(100),
+              borderRadius: BorderRadius.circular(11),
               child: Container(
                 height: 55,
                 width: MediaQuery.of(context).size.width,
@@ -65,7 +63,7 @@ class _BottomNavigationBarControllerState
                   height: 55,
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 27, 32, 44),
-                    borderRadius: BorderRadius.circular(100),
+                    borderRadius: BorderRadius.circular(11),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
@@ -91,11 +89,11 @@ class _BottomNavigationBarControllerState
                               children: [
                                 !navCon.isHome
                                     ? Icon(
-                                        Icons.explore_outlined,
+                                        Icons.music_note_outlined,
                                       )
                                     : Icon(
-                                        Icons.explore_rounded,
-                                        color: Colors.pink.withOpacity(0.8),
+                                        Icons.music_note_rounded,
+                                        color: Colors.green.withOpacity(0.8),
                                         size: 35,
                                       ),
                               ]),
@@ -126,7 +124,7 @@ class _BottomNavigationBarControllerState
                                       )
                                     : Icon(
                                         Icons.search_rounded,
-                                        color: Colors.pink.withOpacity(0.8),
+                                        color: Colors.green.withOpacity(0.8),
                                         size: 35,
                                       ),
                               ]),
@@ -152,12 +150,12 @@ class _BottomNavigationBarControllerState
                                 children: [
                                   !navCon.isMyEvents
                                       ? Icon(
-                                          Icons.event_outlined,
+                                          Icons.library_music_outlined,
                                           size: 26,
                                         )
                                       : Icon(
-                                          Icons.event_rounded,
-                                          color: Colors.pink.withOpacity(0.8),
+                                          Icons.library_music_rounded,
+                                          color: Colors.green.withOpacity(0.8),
                                           size: 35,
                                         ),
                                 ]),
@@ -184,7 +182,7 @@ class _BottomNavigationBarControllerState
                                     ? Icon(
                                         Icons.person_rounded,
                                         size: 35,
-                                        color: Colors.pink.withOpacity(0.8),
+                                        color: Colors.green.withOpacity(0.8),
                                       )
                                     : Icon(
                                         Icons.person_outline,
@@ -200,110 +198,6 @@ class _BottomNavigationBarControllerState
             ),
           ),
         ),
-
-        // bottomNavigationBar: DotNavigationBar(
-        //   dotIndicatorColor: Colors.transparent,
-        //   enableFloatingNavBar: true,
-        //   marginR: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-        //   paddingR: const EdgeInsets.only(bottom: 0, top: 0, left: 0, right: 0),
-        //   itemPadding: const EdgeInsets.only(left: 0, right: 0),
-        //   duration: Duration(milliseconds: 300),
-        //   backgroundColor: Color(0xFF0e1117).withOpacity(0.95),
-        //   enablePaddingAnimation: false,
-        //   onTap: (int index) {
-        //     setState(() {});
-        //     navCon.navigate(index);
-        //   },
-        //   currentIndex: navCon.selectedPage,
-        //   items: [
-        //     DotNavigationBarItem(
-        //       icon: Column(
-        //         children: [
-        //           SizedBox(
-        //             height: 18,
-        //           ),
-        //           Container(
-        //               width: 84,
-        //               child: Icon(
-        //                 Icons.explore,
-        //                 color: navCon.selectedPage == 0
-        //                     ? Color(0xABE51F5C)
-        //                     : Colors.white,
-        //               )),
-        //           SizedBox(
-        //             height: 18,
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //     DotNavigationBarItem(
-        //       icon: Container(
-        //         width: 80,
-        //         child: Column(
-        //           children: [
-        //             SizedBox(
-        //               height: 18,
-        //             ),
-        //             Icon(
-        //               Icons.search,
-        //               color: navCon.selectedPage == 1
-        //                   ? Color(0xABE51F5C)
-        //                   : Colors.white,
-        //             ),
-        //             SizedBox(
-        //               height: 18,
-        //             ),
-        //           ],
-        //         ),
-        //       ),
-        //     ),
-        //     DotNavigationBarItem(
-        //       icon: Container(
-        //         width: 80,
-        //         child: Column(
-        //           children: [
-        //             SizedBox(
-        //               height: 18,
-        //             ),
-        //             Icon(
-        //               Icons.event_note_rounded,
-        //               color: navCon.selectedPage == 2
-        //                   ? Color(0xABE51F5C)
-        //                   : Colors.white,
-        //             ),
-        //             SizedBox(
-        //               height: 18,
-        //             ),
-        //           ],
-        //         ),
-        //       ),
-        //     ),
-        //     DotNavigationBarItem(
-        //       icon: Container(
-        //         width: 80,
-        //         child: Column(
-        //           children: [
-        //             SizedBox(
-        //               height: 18,
-        //             ),
-        //             Container(
-        //                 child: FaIcon(
-        //               FontAwesomeIcons.user,
-        //               color: navCon.selectedPage == 3
-        //                   ? Color(0xABE51F5C)
-        //                   : Colors.white,
-        //               size: 22,
-        //             )),
-        //             SizedBox(
-        //               height: 18,
-        //             ),
-        //           ],
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
-
         body: GetBuilder<NavController>(
           builder: (controller) {
             return IndexedStack(

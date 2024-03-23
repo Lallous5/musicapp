@@ -63,7 +63,7 @@ class AuthBACKEND {
   }
 
   Future<void> createUser(
-      String email, String password, String firstname, String lastname) async {
+      String email, String password, String userName) async {
     final response = await http.post(
       Uri.parse('$baseUrl/signUp/createUser'),
       headers: <String, String>{
@@ -72,13 +72,12 @@ class AuthBACKEND {
       body: jsonEncode(<String, String>{
         'email': email,
         'password': password,
-        'firstname': firstname,
-        'lastname': lastname
+        'userName': userName,
       }),
     );
 
     if (response.statusCode == 200) {
-      Get.toNamed(RouteGenerator.navBar);
+
       print("success");
     } else {
       print("go to signup");
