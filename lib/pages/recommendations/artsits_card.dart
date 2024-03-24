@@ -4,12 +4,14 @@ import 'package:musicapp/models/artistsModel.dart';
 class ArtistCircleWidget extends StatelessWidget {
   final ArtsitModel artist;
   final bool isSelected;
+  final bool isLibrary;
   final Function(bool) onSelect;
 
   const ArtistCircleWidget({
     Key? key,
     required this.artist,
     this.isSelected = false,
+    this.isLibrary = false,
     required this.onSelect,
   }) : super(key: key);
 
@@ -22,8 +24,8 @@ class ArtistCircleWidget extends StatelessWidget {
           Stack(
             children: [
               Container(
-                width: 100,
-                height: 100,
+                width: isLibrary ? 170 : 100,
+                height: isLibrary ? 170 : 100,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
@@ -55,8 +57,16 @@ class ArtistCircleWidget extends StatelessWidget {
           Text(
             artist.artistsName ?? '',
             style: TextStyle(
+              fontSize: 16,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              color: isSelected ? Colors.greenAccent : Colors.black,
+              color: isSelected ? Colors.greenAccent : Colors.white,
+            ),
+          ),
+          Text(
+            'artist',
+            style: TextStyle(
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              color: isSelected ? Colors.greenAccent : Colors.white60,
             ),
           ),
         ],

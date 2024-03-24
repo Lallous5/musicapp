@@ -77,7 +77,28 @@ class AuthBACKEND {
     );
 
     if (response.statusCode == 200) {
+      print("success");
+    } else {
+      print("go to signup");
+    }
+  }
 
+  Future<void> editUser(
+      int userID, String userName, String firstName, String lastName) async {
+    final response = await http.patch(
+      Uri.parse('$baseUrl/user/updateUser'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'userID': "$userID",
+        'userName': userName,
+        'firstname': firstName,
+        'lastname': lastName,
+      }),
+    );
+
+    if (response.statusCode == 200) {
       print("success");
     } else {
       print("go to signup");

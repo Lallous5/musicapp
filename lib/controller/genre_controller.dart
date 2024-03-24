@@ -18,6 +18,7 @@ class GenresController extends GetxController {
   @override
   void onInit() {
     fetchGenres();
+    // fetchLikedGenresByUser();
     super.onInit();
   }
 

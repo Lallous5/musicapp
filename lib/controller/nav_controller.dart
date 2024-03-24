@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicapp/pages/explorepage.dart';
 import 'package:musicapp/pages/librarypage.dart';
-import 'package:musicapp/pages/premiumpage.dart';
+
 import 'package:musicapp/pages/searchpage.dart';
+
+import '../pages/profilepage.dart';
 
 class NavController extends GetxController {
   final itemColor = Color(0xFFA1216F);
@@ -23,7 +25,7 @@ class NavController extends GetxController {
     ExplorePage(),
     SearchPage(),
     LibraryPage(),
-    PremiumPage(),
+    ProfilePage(),
   ];
 
   void navigate(int index, {bool? fromInit}) {

@@ -10,16 +10,16 @@ import '../rout.dart';
 class ArtistsController extends GetxController {
   AUTHController authController = Get.find();
   var artists = <ArtsitModel>[].obs;
-  var randomArtists = <ArtsitModel>[].obs;
+  // var randomArtists = <ArtsitModel>[].obs;
   AtristandGenreAPI atristAPI = AtristandGenreAPI();
   var selectedArtists = RxList<int>();
 
   var searchQuery = ''.obs;
-
   @override
   void onInit() {
     fetchArtists();
-    fetchRandomArtists();
+    // fetchRandomArtists();
+    // fetchLikedArtistsByUser();
     super.onInit();
   }
 
@@ -46,19 +46,19 @@ class ArtistsController extends GetxController {
     }
   }
 
-  Future<List<ArtsitModel>> fetchRandomArtists() async {
-    try {
-      List<ArtsitModel> allArtists = await atristAPI.fetchAllArtists();
-      // Shuffle the list of artists
-      allArtists.shuffle();
-      // Get a random number of artists from the shuffled list
-      int numberOfRandomArtists = Random().nextInt(allArtists.length);
-      randomArtists.value = allArtists.sublist(0, numberOfRandomArtists);
-      return randomArtists;
-    } catch (e) {
-      throw Exception('Failed to load random artists: $e');
-    }
-  }
+  // Future<List<ArtsitModel>> fetchRandomArtists() async {
+  //   try {
+  //     List<ArtsitModel> allArtists = await atristAPI.fetchAllArtists();
+  //     // Shuffle the list of artists
+  //     allArtists.shuffle();
+  //     // Get a random number of artists from the shuffled list
+  //     int numberOfRandomArtists = Random().nextInt(allArtists.length);
+  //     randomArtists.value = allArtists.sublist(0, numberOfRandomArtists);
+  //     return randomArtists;
+  //   } catch (e) {
+  //     throw Exception('Failed to load random artists: $e');
+  //   }
+  // }
 
   Future<void> handleLikedArtist() async {
     print("handleLikedArtist");

@@ -56,7 +56,7 @@ class AUTHController extends GetxController {
       await auth.checkPass(userModel!.userID as int, passwordController.text);
       // If email is valid, you can proceed with the login process using the returned user ID
 
-      Get.toNamed(RouteGenerator.artist);
+      Get.toNamed(RouteGenerator.navBar);
       // Navigate to the appropriate page based on the response
     } catch (e) {
       // Handle any exceptions, such as invalid email
@@ -73,7 +73,7 @@ class AUTHController extends GetxController {
       await auth.createUser(email, passwordController.text, userName);
       // If email is valid, you can proceed with the login process using the returned user ID
 
-      Get.toNamed(RouteGenerator.navBar);
+      Get.toNamed(RouteGenerator.artist);
       // Navigate to the appropriate page based on the response
     } catch (e) {
       // Handle any exceptions, such as invalid email

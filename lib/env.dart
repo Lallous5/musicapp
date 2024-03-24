@@ -10,7 +10,7 @@ abstract class AppEnvironment {
     switch (env) {
       case Environment.dev:
         {
-          baseApiUrl = 'https://musicapp-backend-owsq.onrender.com';
+          baseApiUrl = 'http://10.0.2.2:3000';
           title = 'musicapp dev';
           break;
         }
