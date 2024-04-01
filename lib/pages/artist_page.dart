@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_scale_tap/flutter_scale_tap.dart';
 import 'package:get/get.dart';
 import 'package:musicapp/controller/artists_controller.dart';
+import 'package:musicapp/controller/songs_controller.dart';
 import 'package:musicapp/models/artistsModel.dart';
+import 'package:musicapp/models/songsModel.dart';
+import 'package:musicapp/pages/songs_card.dart';
 
 class ArtistScreen extends StatefulWidget {
   ArtsitModel artsitModel;
@@ -15,6 +18,7 @@ class ArtistScreen extends StatefulWidget {
 
 class _ArtistScreenState extends State<ArtistScreen> {
   ArtistsController artistsController = Get.find();
+  SongsController songsController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -114,49 +118,31 @@ class _ArtistScreenState extends State<ArtistScreen> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Row(
-                      
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                             "1",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
+              artistsController.artists.isEmpty
+                  ? const Center(child: CircularProgressIndicator())
+                  : Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: songsController.songs.length,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) {
+                            // If isMore is false or index is within range, build the ArtistCircleWidget
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SongsCard(
+                                songsModel: songsController.songs[index],
+                                count: songsController.songs.length,
+                                onSelect: () {
+                                  print(songsController.songs[index].songID);
+                                },
+                              ),
+                            );
+                          },
                         ),
-                        Container(
-                          width: 70,
-                          height: 70,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: Image.network(
-                            widget.artsitModel.artistImage ?? "",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            widget.artsitModel.artistsName ?? "",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        )
-                      ],
+                      ),
                     ),
-                  )
-                ],
-              )
             ],
           ),
         ],

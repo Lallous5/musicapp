@@ -13,6 +13,7 @@ import 'package:musicapp/pages/recommendations/liked_card.dart';
 
 import '../controller/artists_controller.dart';
 import '../controller/login_controller.dart';
+import '../controller/songs_controller.dart';
 
 class LibraryPage extends StatefulWidget {
   const LibraryPage({super.key});
@@ -25,6 +26,8 @@ class _LibraryPageState extends State<LibraryPage> {
   AUTHController loginController = Get.find();
   LikedArtistsController likedartistsController =
       Get.put(LikedArtistsController());
+  SongsController songsController = Get.put(SongsController());
+
   bool isMore = false;
   @override
   Widget build(BuildContext context) {
@@ -123,6 +126,8 @@ class _LibraryPageState extends State<LibraryPage> {
                                     artist: likedartist,
                                     isLibrary: true,
                                     onSelect: (bool value) {
+                                      songsController
+                                          .fetchsongs(likedartist.artistID!);
                                       Get.to(() => ArtistScreen(
                                           artsitModel: likedartist));
                                       print(likedartist.artistID);

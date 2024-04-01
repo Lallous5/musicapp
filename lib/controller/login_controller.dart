@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:musicapp/backend/auth.dart';
 import 'package:musicapp/env.dart';
 import 'package:musicapp/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/persons.dart';
+import '../models/tokenModel.dart';
 import '../rout.dart';
 import '../utils/constantComponent.dart';
 
@@ -29,6 +33,13 @@ class AUTHController extends GetxController {
     update(); // This is to notify the listeners (like UI) about the change.
   }
 
+  // Function to save token to shared preferences
+  Future<void> saveTokenToSharedPreferences(String? token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // Encode token to JSON
+    await prefs.setString('token', json.encode({'token': token}));
+  }
+
   UserModel? get userModel => rxUserModel.value;
   set setUserModel(UserModel user) {
     rxUserModel.value = user;
@@ -51,18 +62,32 @@ class AUTHController extends GetxController {
     }
   }
 
-  Future handleCheckPass() async {
+  Future<void> handleCheckPass() async {
     try {
-      await auth.checkPass(userModel!.userID as int, passwordController.text);
-      // If email is valid, you can proceed with the login process using the returned user ID
+      // Call checkPass to get the token
+      final TokenModel? tokenModel = await auth.checkPass(
+          userModel!.userID as int, passwordController.text);
+      print("tokenModel");
+      print(tokenModel);
+      tokenModel.toString();
+      if (tokenModel != null && tokenModel.token != null) {
+        // Retrieve the token from the tokenModel instance
+        final String token = tokenModel.token!;
 
-      Get.toNamed(RouteGenerator.navBar);
-      // Navigate to the appropriate page based on the response
+        // Save the token to shared preferences
+        await saveTokenToSharedPreferences(token);
+        print(token);
+
+        // Navigate to the appropriate page based on the response
+        Get.toNamed(RouteGenerator.navBar);
+      } else {
+        // Handle case when token is null
+        Get.snackbar("Error", "Failed to obtain token");
+      }
     } catch (e) {
-      // Handle any exceptions, such as invalid email
+      // Handle any exceptions
       print('Error: $e');
-      // Navigate to the new password page
-      Get.snackbar("error", "$e");
+      Get.snackbar("Error", "$e");
     }
   }
 

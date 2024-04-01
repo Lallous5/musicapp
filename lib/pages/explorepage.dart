@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_scale_tap/flutter_scale_tap.dart';
 import 'package:get/get.dart';
 import 'package:musicapp/controller/genre_controller.dart';
+import 'package:musicapp/controller/songs_controller.dart';
 import 'package:musicapp/pages/recommendations/artsits_card.dart';
 
 import '../controller/artists_controller.dart';
@@ -17,9 +18,10 @@ class ExplorePage extends StatefulWidget {
 }
 
 class _ExplorePageState extends State<ExplorePage> {
-  AUTHController loginController = Get.find();
+  AUTHController loginController = Get.put(AUTHController());
   ArtistsController artistsController = Get.put(ArtistsController());
   GenresController genresController = Get.put(GenresController());
+  SongsController songsController = Get.put(SongsController());
   bool isMore = false;
   @override
   Widget build(BuildContext context) {
@@ -139,6 +141,11 @@ class _ExplorePageState extends State<ExplorePage> {
                               child: ArtistCircleWidget(
                                 artist: artistsController.artists[index],
                                 onSelect: (p0) {
+                                  print(artistsController
+                                      .artists[index].artistID);
+                                  songsController.fetchsongs(artistsController
+                                      .artists[index].artistID!);
+
                                   Get.to(() => ArtistScreen(
                                       artsitModel:
                                           artistsController.artists[index]));

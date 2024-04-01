@@ -6,6 +6,7 @@ import 'package:musicapp/rout.dart';
 
 import '../env.dart';
 import '../models/persons.dart';
+import '../models/tokenModel.dart';
 
 class AuthBACKEND {
   final String baseUrl = AppEnvironment.baseApiUrl;
@@ -56,7 +57,9 @@ class AuthBACKEND {
     );
 
     if (response.statusCode == 200) {
-      print("success");
+      final Map<String, dynamic> responseBody = json.decode(response.body);
+      print(responseBody);
+      return TokenModel.fromMap(responseBody);
     } else {
       print("go to signup");
     }
